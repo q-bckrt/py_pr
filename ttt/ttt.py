@@ -33,11 +33,36 @@ class Board:
                 raise ValueError
         except:
             print("error: Board.play() has been passed wrong arguments")
-            return False
+            return -1
         # checking square avalaibility and placing the piece
         if self._board[crds[sq][0]][crds[sq][1]] == '-':
             self._board[crds[sq][0]][crds[sq][1]] = pc
         else:
             print("error: square is taken!")
-            return False
-        return True
+            return -2
+        return 1
+
+def get_player_move(player):
+    pieces = '-'
+    if player == 0:
+        pieces = 'x'
+    else:
+        pieces = 'o'
+    return int(input(f"player {player + 1} > choose square number: ")), pieces
+
+# initialize
+board = Board()
+board.display()
+turn = 0
+
+# main game loop
+while turn < 9:
+    player = turn % 2
+
+    ret = 0
+    while ret <= 0:
+        place, pieces = get_player_move(player)
+        ret = board.play(place, pieces)
+
+    board.display()
+    turn += 1
