@@ -1,3 +1,5 @@
+from termcolor import colored
+
 class Board:
     # initializing the board in the form of a 2-dimensional list
     def __init__(self):
@@ -42,13 +44,37 @@ class Board:
             return -2
         return 1
 
+    def is_win(self):
+        if (self._board[0][0] == self._board[1][1] == self._board[2][2]
+        and self._board[0][0] != '-'):
+            return True
+        if (self._board[0][2] == self._board[1][1] == self._board[2][0]
+        and self._board[0][2] != '-'):
+            return True
+        for i in range(0, 3):
+            if (self._board[i][0] == self._board[i][1] == self._board[i][2]
+            and self._board[i][0] != '-'):
+                return True
+            if (self._board[0][i] == self._board[1][i] == self._board[2][i]
+            and self._board[i][0] != '-'):
+                return True
+        return False
+            
+
 def get_player_move(player):
     pieces = '-'
-    if player == 0:
+    if player == '1':
         pieces = 'x'
     else:
         pieces = 'o'
-    return int(input(f"player {player + 1} > choose square number: ")), pieces
+    return int(input(f"player {player} > choose square number: ")), pieces
+
+def get_player_color(turn):
+    pn = (turn % 2) + 1
+    if pn == 1:
+        return colored(str(pn), color="magenta")
+    else:
+        return colored(str(pn), color="cyan")
 
 # initialize
 board = Board()
@@ -56,13 +82,18 @@ board.display()
 turn = 0
 
 # main game loop
-while turn < 9:
-    player = turn % 2
-
+while True:
+    player = get_player_color(turn)
     ret = 0
     while ret <= 0:
         place, pieces = get_player_move(player)
         ret = board.play(place, pieces)
 
     board.display()
+    if board.is_win():
+        print(f"Player {player} wins!")
+        break
+    if turn == 8:
+        break
     turn += 1
+
