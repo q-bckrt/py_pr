@@ -106,16 +106,20 @@ while True:
     pn = (turn % 2) + 1
     player = get_player_color(pn)
     ret = 0
+    # placing player piece
     while ret <= 0:
         place, pieces = get_player_move(pn, player)
         if place == 0:
             continue
         ret = board.play(place, pieces)
+
+    # checking if there's a win
     w = board.is_win()
     if w:
         print(f"Player {player} wins!")
         color_winning_line(board, w[0], w[1], pn).display()
         break
+
     board.display()
     if turn == 8:
         break
