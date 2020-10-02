@@ -1,3 +1,5 @@
+# unit tests for the deck.py classes
+
 import unittest
 from deck import Card, Deck
 

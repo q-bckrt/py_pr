@@ -1,10 +1,7 @@
-#a simple rock/paper/scissors game
-#player vs. computer version
+# a simple rock/paper/scissors game, against computer
 from random import randint
 
-print("*************************")
 print("** ROCK PAPER SCISSORS **")
-print("*************************")
 
 def get_player_input(p_name):
     inputok = False

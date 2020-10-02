@@ -1,3 +1,5 @@
+# a simple game of tic-tac-toe, in terminal
+
 from termcolor import colored, cprint
 
 class Board:
